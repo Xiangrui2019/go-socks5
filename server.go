@@ -7,7 +7,7 @@ import (
 	"net"
 )
 
-type LsServer struct {
+type RemoteServer struct {
 	Cipher     *cipher
 	ListenAddr *net.TCPAddr
 }
@@ -17,7 +17,7 @@ type LsServer struct {
 // 1. 监听来自本地代理客户端的请求
 // 2. 解密本地代理客户端请求的数据，解析 SOCKS5 协议，连接用户浏览器真正想要连接的远程服务器
 // 3. 转发用户浏览器真正想要连接的远程服务器返回的数据的加密后的内容到本地代理客户端
-func NewLsServer(password string, listenAddr string) (*LsServer, error) {
+func NewRemoteServer(password string, listenAddr string) (*RemoteServer, error) {
 	bsPassword, err := parsePassword(password)
 	if err != nil {
 		return nil, err
@@ -26,7 +26,7 @@ func NewLsServer(password string, listenAddr string) (*LsServer, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &LsServer{
+	return &RemoteServer{
 		Cipher:     newCipher(bsPassword),
 		ListenAddr: structListenAddr,
 	}, nil
@@ -34,13 +34,13 @@ func NewLsServer(password string, listenAddr string) (*LsServer, error) {
 }
 
 // 运行服务端并且监听来自本地代理客户端的请求
-func (lsServer *LsServer) Listen(didListen func(listenAddr net.Addr)) error {
+func (lsServer *RemoteServer) Listen(didListen func(listenAddr net.Addr)) error {
 	return ListenSecureTCP(lsServer.ListenAddr, lsServer.Cipher, lsServer.handleConn, didListen)
 }
 
 // 解 SOCKS5 协议
 // https://www.ietf.org/rfc/rfc1928.txt
-func (lsServer *LsServer) handleConn(localConn *SecureTCPConn) {
+func (lsServer *RemoteServer) handleConn(localConn *SecureTCPConn) {
 	defer localConn.Close()
 	buf := make([]byte, 256)
 

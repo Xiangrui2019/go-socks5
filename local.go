@@ -7,7 +7,7 @@ import (
 	"net"
 )
 
-type LsLocal struct {
+type LocalServer struct {
 	Cipher     *cipher
 	ListenAddr *net.TCPAddr
 	RemoteAddr *net.TCPAddr
@@ -19,7 +19,7 @@ type LsLocal struct {
 // 2. 转发前加密数据
 // 3. 转发socket数据到墙外代理服务端
 // 4. 把服务端返回的数据转发给用户的浏览器
-func NewLsLocal(password string, listenAddr, remoteAddr string) (*LsLocal, error) {
+func NewLocalServer(password string, listenAddr, remoteAddr string) (*LocalServer, error) {
 	bsPassword, err := parsePassword(password)
 	if err != nil {
 		return nil, err
@@ -32,7 +32,7 @@ func NewLsLocal(password string, listenAddr, remoteAddr string) (*LsLocal, error
 	if err != nil {
 		return nil, err
 	}
-	return &LsLocal{
+	return &LocalServer{
 		Cipher:     newCipher(bsPassword),
 		ListenAddr: structListenAddr,
 		RemoteAddr: structRemoteAddr,
@@ -40,11 +40,11 @@ func NewLsLocal(password string, listenAddr, remoteAddr string) (*LsLocal, error
 }
 
 // 本地端启动监听，接收来自本机浏览器的连接
-func (local *LsLocal) Listen(didListen func(listenAddr net.Addr)) error {
+func (local *LocalServer) Listen(didListen func(listenAddr net.Addr)) error {
 	return ListenSecureTCP(local.ListenAddr, local.Cipher, local.handleConn, didListen)
 }
 
-func (local *LsLocal) handleConn(userConn *SecureTCPConn) {
+func (local *LocalServer) handleConn(userConn *SecureTCPConn) {
 	defer userConn.Close()
 
 	proxyServer, err := DialTCPSecure(local.RemoteAddr, local.Cipher)
