@@ -29,6 +29,6 @@ func main() {
 密码 password：
 %s
 	`, listenAddr, config.RemoteAddr, config.Password))
-		log.Printf("gosocks5 启动成功 监听在 %s\n", listenAddr.String())
+		log.Printf("gosocks5-client 启动成功 监听在 %s\n", listenAddr.String())
 	}))
 }

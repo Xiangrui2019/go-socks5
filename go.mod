@@ -2,7 +2,10 @@ module github.com/xiangrui2019/go_socks5
 
 go 1.12
 
-require github.com/mitchellh/go-homedir v1.1.0
+require (
+	github.com/mitchellh/go-homedir v1.1.0
+	github.com/phayes/freeport v0.0.0-20180830031419-95f893ade6f2
+)
 
 replace (
 	cloud.google.com/go => github.com/googleapis/google-cloud-go v0.26.0
