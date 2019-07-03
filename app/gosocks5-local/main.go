@@ -1,5 +1,7 @@
 package main
 
+// Socks5其实很简单, 任何人都可以参考规范很简单的写出一个sock5代理
+
 import (
 	"fmt"
 	"log"
