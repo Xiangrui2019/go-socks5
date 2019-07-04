@@ -28,6 +28,7 @@ steps:
   displayName: 'Set up the Go workspace'
 
 - script: |
+    export GO111MODULE=on
     make
   workingDirectory: '$(modulePath)'
   displayName: 'Get dependencies, then build'
