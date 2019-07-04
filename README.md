@@ -1,2 +1,5 @@
 # go-socks5
+
+[![Build Status](https://dev.azure.com/xiangrui0248/go-socks5/_apis/build/status/Xiangrui2019.go-socks5?branchName=master)](https://dev.azure.com/xiangrui0248/go-socks5/_build/latest?definitionId=8&branchName=master)
+
 一个轻巧简洁的Socks5代理工具, 怂.....
