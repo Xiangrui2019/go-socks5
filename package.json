@@ -1,4 +1,13 @@
 {
     "name": "gosocks5",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "author": "Xiangrui <xiangrui@aiursoft.com>",
+    "contributors": [
+        "xiangrui@aiursoft.com"
+    ],
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Xiangrui2019/go-socks5"
+    }
 }
