@@ -7,21 +7,15 @@ import (
 	"log"
 	"net"
 
-	"github.com/phayes/freeport"
 	"github.com/xiangrui2019/go_socks5"
 )
 
 func main() {
 	log.SetFlags(log.Lshortfile)
 
-	port, err := freeport.GetFreePort()
-	if err != nil {
-		// 随机端口失败就采用 7448
-		port = 7448
-	}
 	// 默认配置
 	config := &go_socks5.Config{
-		ListenAddr: fmt.Sprintf(":%d", port),
+		ListenAddr: fmt.Sprintf(":%d", 7448),
 		// 密码随机生成
 		Password: go_socks5.RandPassword(),
 	}

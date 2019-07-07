@@ -15,3 +15,4 @@ go.sum
 vendor/
 .DS_Store
 .github
+main
